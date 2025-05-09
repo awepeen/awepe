@@ -1,79 +1,335 @@
 
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Portofolio Adit</title>
-  <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Awepe | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2e0e6f74e.js" crossorigin="anonymous"></script>
   <style>
-    body {
-      font-family: sans-serif;
-      margin: 2rem;
-      line-height: 1.6;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
     }
-    header, nav, section, footer {
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      background: linear-gradient(135deg, #fdfbfb, #ebedee);
+      color: #333;
+      line-height: 1.6;
+      padding: 2rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .dark-mode {
+      background-color: #1e1e2f;
+      color: #f1f1f1;
+    }
+    header {
+      text-align: center;
       margin-bottom: 2rem;
     }
+    header h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #1e3a8a;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
     nav a {
-      margin-right: 1rem;
       text-decoration: none;
-      color: blue;
+      color: #1e3a8a;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border: 2px solid #1e3a8a;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+    nav a:hover {
+      background-color: #1e3a8a;
+      color: white;
+    }
+    section {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    footer {
+      text-align: center;
+      color: #555;
+      font-size: 0.9rem;
     }
     form {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
-      max-width: 400px;
+      gap: 1rem;
+    }
+    input, textarea, button {
+      padding: 0.8rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #1e3a8a;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #374fc9;
+    }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: #1e3a8a;
+      color: white;
+      padding: 0.5rem 0.7rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .dark-mode nav a {
+      color: #f1f1f1;
+      border-color: #f1f1f1;
+    }
+    .dark-mode nav a:hover {
+      background-color: #f1f1f1;
+      color: #1e1e2f;
+    }
+    .dark-mode section {
+      background-color: #2b2b3c;
+      color: #f1f1f1;
+    }
+    .dark-mode button {
+      background-color: #f1f1f1;
+      color: #1e1e2f;
+    }
+    .dark-mode button:hover {
+      background-color: #ccc;
+    }
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+      nav a {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* Timeline Styles */
+    .timeline {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      position: relative;
+    }
+    .timeline li {
+      position: relative;
+      padding-left: 3rem;
+      margin-bottom: 2rem;
+    }
+    .timeline li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 12px;
+      height: 12px;
+      background: #1e3a8a;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+    .timeline li::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 2px;
+      height: 100%;
+      background: #1e3a8a;
+    }
+    .timeline .event {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .timeline .event h3 {
+      color: #1e3a8a;
+    }
+
+    /* Testimonial Styles */
+    .testimonials {
+      display: flex;
+      gap: 1rem;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .testimonial {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      flex: 1 1 30%;
+    }
+    .testimonial p {
+      font-style: italic;
+      color: #555;
+    }
+
+    /* Blog Preview Styles */
+    .blog-preview {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .blog-preview .post {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .blog-preview .post h3 {
+      color: #1e3a8a;
     }
   </style>
 </head>
 <body>
+  <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
   <header>
-    <h1>Halo, saya Adit</h1>
-    <p>Web ini berisi portofolio, blog, dan galeri desain saya.</p>
+    <h1>Awepe</h1>
+    <p>Web Portfolio & Projects</p>
   </header>
-
   <nav>
-    <a href="#about">Tentang</a>
-    <a href="#blog">Blog</a>
-    <a href="#gallery">Galeri</a>
-    <a href="#contact">Kontak</a>
+    <a href="#about">About</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
   </nav>
 
   <section id="about">
-    <h2>Tentang Saya</h2>
-    <p>Desainer & developer yang tertarik pada visual dan interaktifitas web.</p>
+    <h2><i class="fas fa-user"></i> About Me</h2>
+    <p>Halo! Saya Awepe, seorang kreator yang suka dengan desain, teknologi, dan eksplorasi digital. Di sini kamu bisa lihat beberapa karya dan projek saya.</p>
   </section>
 
-  <section id="blog">
-    <h2>Blog</h2>
-    <p>Segera hadir.</p>
+  <section id="timeline">
+    <h2><i class="fas fa-history"></i> Experience Timeline</h2>
+    <ul class="timeline">
+      <li>
+        <div class="event">
+          <h3>Web Developer at XYZ Company</h3>
+          <p>Jan 2023 - Present</p>
+          <p>Developing dynamic websites and maintaining web applications.</p>
+        </div>
+      </li>
+      <li>
+        <div class="event">
+          <h3>UI/UX Designer at ABC Agency</h3>
+          <p>May 2021 - Dec 2022</p>
+          <p>Designed intuitive user interfaces for web and mobile applications.</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="testimonials">
+    <h2><i class="fas fa-quote-left"></i> Testimonials</h2>
+    <div class="testimonials">
+      <div class="testimonial">
+        <p>"Awepe's work on our website was fantastic! The attention to detail and creativity were remarkable."</p>
+        <h4>- John Doe, CEO of TechCorp</h4>
+      </div>
+      <div class="testimonial">
+        <p>"Working with Awepe was a pleasure. The design process was smooth, and the final product exceeded our expectations."</p>
+        <h4>- Jane Smith, Product Manager at Creative Solutions</h4>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <h2><i class="fas fa-briefcase"></i> Portfolio & Blog</h2>
+    <ul>
+      <li>Project 1 - Web Design</li>
+      <li>Project 2 - UI/UX Mobile App</li>
+      <li>Blog: Tips belajar JavaScript</li>
+    </ul>
+
+    <h2>Recent Blog Posts</h2>
+    <div class="blog-preview">
+      <div class="post">
+        <h3>Understanding CSS Grid</h3>
+        <p>Learn how to create complex layouts with CSS Grid in this detailed guide.</p>
+      </div>
+      <div class="post">
+        <h3>How to Build Responsive Websites</h3>
+        <p>Best practices for building responsive websites that work on all devices.</p>
+      </div>
+    </div>
   </section>
 
   <section id="gallery">
-    <h2>Galeri</h2>
-    <p>Desain favorit akan saya tampilkan di sini nanti.</p>
+    <h2><i class="fas fa-images"></i> Gallery</h2>
+    <p>Coming soon: Galeri desain dan projek saya dalam bentuk visual.</p>
   </section>
 
   <section id="contact">
-    <h2>Kontak Saya</h2>
+    <h2><i class="fas fa-envelope"></i> Contact Me</h2>
     <form action="https://formspree.io/f/mnndvzpe" method="POST">
-      <label>Nama:
-        <input type="text" name="name" required />
-      </label>
-      <label>Email:
-        <input type="email" name="email" required />
-      </label>
-      <label>Pesan:
-        <textarea name="message" required></textarea>
-      </label>
-      <button type="submit">Kirim</button>
+      <input type="text" name="name" placeholder="Your name" required />
+      <input type="email" name="email" placeholder="Your email" required />
+      <textarea name="message" placeholder="Your message" rows="5" required></textarea>
+      <button type="submit">Send</button>
     </form>
   </section>
 
   <footer>
-    <p>&copy; 2025 Adit. Dibuat dengan HTML, CSS & JavaScript.</p>
+    <p>&copy; 2025 Awepe. All rights reserved.</p>
   </footer>
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+    }
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.2
+    });
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  </script>
 </body>
 </html>
